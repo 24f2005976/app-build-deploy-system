@@ -1,0 +1,4 @@
+timestamp,email,endpoint,secret
+2024-10-17T10:00:00Z,student1@example.com,http://localhost:5000/api/build,secret123
+2024-10-17T10:05:00Z,student2@example.com,http://localhost:5000/api/build,secret456
+2024-10-17T10:10:00Z,student3@example.com,http://localhost:5000/api/build,secret789

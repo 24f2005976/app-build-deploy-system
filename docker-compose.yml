@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  student-api:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+      - STUDENT_API_PORT=5000
+    env_file:
+      - .env
+    volumes:
+      - ./database:/app/database
+    depends_on:
+      - evaluation-api
+    restart: unless-stopped
+
+  evaluation-api:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+      - EVALUATION_API_PORT=5001
+    env_file:
+      - .env
+    volumes:
+      - ./database:/app/database
+    command: ["python", "evaluation_system/evaluation_api.py"]
+    restart: unless-stopped
+
+  database:
+    image: sqlite:latest
+    volumes:
+      - ./database:/data
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
